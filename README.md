@@ -14,4 +14,4 @@ The Bluemix Kubernetes sample demonstrates how to set up your environment to dep
 ## Create an IBM DevOps Services toolchain
 The Create Toolchain button below will create a Bluemix DevOps service tookchain and pipeline for deploying the Guestbook sample.
 
-[![Create Toolchain](https://console.w3ibm.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.w3ibm.bluemix.net/devops/setup/deploy/?repository=https://github.com/horia-alungulesei/bluemix-kubernetes-sample)
+[![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.w3ibm.bluemix.net/devops/setup/deploy/?repository=https://github.com/horia-alungulesei/bluemix-kubernetes-sample)
