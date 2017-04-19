@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: iot4idashboard
+    tier: frontend
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  # type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 3000
+  selector:
+    app: iot4idashboard
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: iot4idashboard
+  #   tier: frontend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  # selector can be applied automatically
+  # from the labels in the pod template if not set
+  # selector:
+  #   matchLabels:
+  #     app: iot4idashboard
+  #     tier: frontend
+  template:
+    metadata:
+      labels:
+        app: iot4idashboard
+        tier: frontend
+    spec:
+      containers:
+      - name: iot4idashboard
+        image: registry.stage1.ng.bluemix.net/iot4i/iot4idashboard:3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 3000
