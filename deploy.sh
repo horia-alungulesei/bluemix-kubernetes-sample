@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Create Guestbook"
+echo "Create iot4i-deployment"
 IP_ADDR=$(bx cs workers $CLUSTER_NAME | grep normal | awk '{ print $2 }')
 if [ -z $IP_ADDR ]; then
   echo "$CLUSTER_NAME not created or workers not ready"
@@ -15,17 +15,17 @@ if [ $? -ne 0 ]; then
 fi
 eval "$exp"
 
-echo -e "Downloading guestbook yml"
-curl --silent "https://raw.githubusercontent.com/kubernetes/kubernetes/master/examples/guestbook/all-in-one/guestbook-all-in-one.yaml" > guestbook.yml
-sed -i '130i\ \ type: NodePort' guestbook.yml #For OSX: brew install gnu-sed; replace sed references with gsed
+echo -e "Downloading iot4i-deployment.yml"
+curl --silent "https://raw.githubusercontent.com/horia-alungulesei/bluemix-kubernetes-sample/iot4i-stage1/iot4i-deployment.yaml" > iot4i-deployment.yml
+sed -i '130i\ \ type: NodePort' iot4i-deployment.yml #For OSX: brew install gnu-sed; replace sed references with gsed
 
-echo -e "Deleting previous version of guestbook if it exists"
-kubectl delete --ignore-not-found=true   -f guestbook.yml
+echo -e "Deleting previous version of iot4i-deployment if it exists"
+kubectl delete --ignore-not-found=true   -f iot4i-deployment.yml
 
 echo -e "Creating pods"
-kubectl create -f guestbook.yml
+kubectl create -f iot4i-deployment.yml
 
-PORT=$(kubectl get services | grep frontend | sed 's/.*://g' | sed 's/\/.*//g')
+PORT=$(kubectl get services | grep iot4ifrontend | sed 's/.*://g' | sed 's/\/.*//g')
 
 echo ""
-echo "View the guestbook at http://$IP_ADDR:$PORT"
+echo "View the iot4i-deployment at http://$IP_ADDR:$PORT"
