@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: iot4idashboard
-        image: registry.ng.bluemix.net/iot4i/iot4idashboard:5
+        image: registry.ng.bluemix.net/iot4itest/iot4idashboard:5
         resources:
           requests:
             cpu: 100m
