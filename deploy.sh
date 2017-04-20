@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Create iot4i-deployment"
-IP_ADDR=$(bx cs workers $CLUSTER_NAME | grep deployed | awk '{ print $2 }')
+IP_ADDR=$(bx cs workers $CLUSTER_NAME | grep normal | awk '{ print $2 }')
 if [ -z $IP_ADDR ]; then
   echo "$CLUSTER_NAME not created or workers not ready"
   exit 1
@@ -25,7 +25,7 @@ kubectl delete --ignore-not-found=true   -f iot4i-deployment.yml
 echo -e "Creating pods"
 kubectl create -f iot4i-deployment.yml
 
-PORT=$(kubectl get services | grep iot4ifrontend | sed 's/.*://g' | sed 's/\/.*//g')
+PORT=$(kubectl get services | grep frontend | sed 's/.*://g' | sed 's/\/.*//g')
 
 echo ""
 echo "View the iot4i-deployment at http://$IP_ADDR:$PORT"
