@@ -16,7 +16,7 @@ fi
 eval "$exp"
 
 echo -e "Downloading iot4i-deployment.yml"
-curl --silent "https://raw.githubusercontent.com/horia-alungulesei/bluemix-kubernetes-sample/iot4i-stage1/iot4i-deployment.yaml" > iot4i-deployment.yml
+curl --silent "https://raw.githubusercontent.com/horia-alungulesei/bluemix-kubernetes-sample/iot4i-yp/iot4i-deployment.yaml" > iot4i-deployment.yml
 sed -i '130i\ \ type: NodePort' iot4i-deployment.yml #For OSX: brew install gnu-sed; replace sed references with gsed
 
 echo -e "Deleting previous version of iot4i-deployment if it exists"
