@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot4ifrontend
+  labels:
+    app: iot4itransformerjs
+    tier: iot4ifrontend
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  type: NodePort
+  # type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 5000
+  selector:
+    app: iot4itransformerjs
+    tier: iot4ifrontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot4ifrontend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: iot4itransformerjs
+        tier: iot4ifrontend
+    spec:
+      containers:
+      - name: iot4itransformerjs
+        image: registry.stage1.ng.bluemix.net/iot4i/iot4itransformerjs
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 5000
