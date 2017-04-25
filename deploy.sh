@@ -16,7 +16,7 @@ fi
 eval "$exp"
 
 echo -e "Downloading iot4i-deployment.yml"
-curl --silent "https://raw.githubusercontent.com/horia-alungulesei/bluemix-kubernetes-sample/iot4i-stage1/iot4i-deployment.yaml" > iot4i-deployment.yml
+curl --silent %1 > iot4i-deployment.yml
 
 echo -e "Deleting previous version of iot4i-deployment if it exists"
 kubectl delete --ignore-not-found=true   -f iot4i-deployment.yml
