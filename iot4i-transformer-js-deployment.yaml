@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: iot4itransformerjs
-        image: registry.stage1.ng.bluemix.net/iot4i/iot4itransformerjs
+        image: registry.stage1.ng.bluemix.net/iot4i/iot4itransformerjs:5
         resources:
           requests:
             cpu: 100m
