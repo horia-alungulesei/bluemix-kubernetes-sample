@@ -20,7 +20,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: iot4i
+  name: iot4itransformerjs
 spec:
   # this replicas value is default
   # modify it according to your case
