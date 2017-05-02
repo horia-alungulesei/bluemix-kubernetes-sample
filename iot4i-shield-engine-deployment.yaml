@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot4i-shield-engine-service
+  labels:
+    app: iot4ishieldengine
+    tier: iot4i
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  type: NodePort
+  # type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 4012
+  selector:
+    app: iot4ishieldengine
+    tier: iot4i
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot4ishieldengine
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: iot4ishieldengine
+  #   tier: iot4i
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  # selector can be applied automatically
+  # from the labels in the pod template if not set
+  # selector:
+  #   matchLabels:
+  #     app: iot4ishieldengine
+  #     tier: iot4i
+  template:
+    metadata:
+      labels:
+        app: iot4ishieldengine
+        tier: iot4i
+    spec:
+      containers:
+      - name: iot4ishieldengine
+        image: registry.stage1.ng.bluemix.net/iot4i/iot4ishieldengine
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 4012
