@@ -13,6 +13,7 @@ spec:
   ports:
     # the port that this service should serve on
   - port: 4011
+    nodePort: 31002
   selector:
     app: iot4iactionengine
     tier: iot4i
@@ -45,9 +46,5 @@ spec:
       containers:
       - name: iot4iactionengine
         image: registry.stage1.ng.bluemix.net/iot4i/iot4iactionengine
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
         ports:
         - containerPort: 4011
