@@ -13,6 +13,7 @@ spec:
   ports:
     # the port that this service should serve on
   - port: 8080
+    nodePort: 31000
   selector:
     app: iot4iapi
     tier: iot4i
@@ -45,9 +46,5 @@ spec:
       containers:
       - name: iot4iapi
         image: registry.stage1.ng.bluemix.net/iot4i/iot4iapi
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
         ports:
         - containerPort: 8080
