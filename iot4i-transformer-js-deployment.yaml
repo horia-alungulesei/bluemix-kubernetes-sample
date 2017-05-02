@@ -13,6 +13,7 @@ spec:
   ports:
     # the port that this service should serve on
   - port: 5000
+    nodePort: 31004
   selector:
     app: iot4itransformerjs
     tier: iot4i
@@ -34,9 +35,5 @@ spec:
       containers:
       - name: iot4itransformerjs
         image: registry.stage1.ng.bluemix.net/iot4i/iot4itransformerjs
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
         ports:
         - containerPort: 5000
