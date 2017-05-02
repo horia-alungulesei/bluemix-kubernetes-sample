@@ -13,6 +13,7 @@ spec:
   ports:
     # the port that this service should serve on
   - port: 3000
+    nodePort: 31001
   selector:
     app: iot4idashboard
     tier: iot4i
@@ -45,9 +46,5 @@ spec:
       containers:
       - name: iot4idashboard
         image: registry.stage1.ng.bluemix.net/iot4i/iot4idashboard
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
         ports:
         - containerPort: 3000
