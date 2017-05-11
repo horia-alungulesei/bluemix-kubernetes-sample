@@ -1,4 +1,4 @@
-#!/bin/bash -vx
+#!/bin/bash
 
 echo "Create iot4i-deployment"
 IP_ADDR=$(bx cs workers $CLUSTER_NAME | grep normal | awk '{ print $2 }')
