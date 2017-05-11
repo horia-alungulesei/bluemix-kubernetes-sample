@@ -15,17 +15,22 @@ if [ $? -ne 0 ]; then
 fi
 eval "$exp"
 
-echo -e "Downloading iot4i-deployment.yml"
-curl --silent "https://raw.githubusercontent.com/horia-alungulesei/bluemix-kubernetes-sample/iot4i-yp/iot4i-deployment.yaml" > iot4i-deployment.yml
-sed -i '130i\ \ type: NodePort' iot4i-deployment.yml #For OSX: brew install gnu-sed; replace sed references with gsed
+echo -e "Downloading iot4i-deployment.yml from" $1
+curl --silent $1 > iot4i-deployment.yml
 
-echo -e "Deleting previous version of iot4i-deployment if it exists"
-kubectl delete --ignore-not-found=true   -f iot4i-deployment.yml
+echo -e "Check if deployment exists for app " $IOT4I_APP_NAME
+kubectl get deployments | grep $IOT4I_APP_NAME
+if [ $? -ne 0 ]; then
+  echo -e "App not deployed to cluster yet, creating pods"
+  kubectl create -f iot4i-deployment.yml
+else
+  echo -e "App already deployed to cluster, updating it..."
+  LATEST_APP_VERSION=$(bx ic images | grep $IOT4I_APP_NAME | sort -rnk2 | awk '!x[$1]++' | awk '{print $2}')
+  # set the new version to the deployment, this would perform a red/black update
+  kubectl set image deployment $IOT4I_APP_NAME $IOT4I_APP_NAME=registry.ng.bluemix.net/iot4i/$IOT4I_APP_NAME:$LATEST_APP_VERSION
+fi
 
-echo -e "Creating pods"
-kubectl create -f iot4i-deployment.yml
-
-PORT=$(kubectl get services | grep frontend | sed 's/.*://g' | sed 's/\/.*//g')
+PORT=$(kubectl get services | grep $SERVICE_NAME | sed 's/.*://g' | sed 's/\/.*//g')
 
 echo ""
 echo "View the iot4i-deployment at http://$IP_ADDR:$PORT"
