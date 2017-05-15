@@ -11,6 +11,9 @@ chmod +x /tmp/Bluemix_CLI/bin/*
 
 export PATH="/tmp/Bluemix_CLI/bin:$PATH"
 
+echo "Install the Bluemix container registry plugin (bx cr)"
+bx plugin install container-registry -r Bluemix
+
 echo "Install the Bluemix container plugin (bx ic)"
 bx plugin install IBM-Containers -r Bluemix
 
