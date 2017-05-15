@@ -25,6 +25,9 @@ if [ $? -ne 0 ]; then
   kubectl create -f iot4i-deployment.yml
 else
   echo -e "App already deployed to cluster, updating it..."
+  bx cr init
+  bx cr info
+  bx cr images
   bx ic init
   bx ic info
   bx ic images
