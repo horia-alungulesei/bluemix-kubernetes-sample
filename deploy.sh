@@ -25,7 +25,6 @@ if [ $? -ne 0 ]; then
   kubectl create -f iot4i-deployment.yml
 else
   echo -e "App already deployed to cluster, updating it..."
-  bx cr init
   LATEST_APP_VERSION=$(bx cr images | grep $IOT4I_APP_NAME | sort -rnk3 | awk '!x[$1]++' | awk '{print $3}')
   # set the new version to the deployment, this would perform a red/black update
   kubectl set image deployment $IOT4I_APP_NAME $IOT4I_APP_NAME=registry.ng.bluemix.net/iot4i_v2/$IOT4I_APP_NAME:$LATEST_APP_VERSION
