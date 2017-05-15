@@ -26,12 +26,7 @@ if [ $? -ne 0 ]; then
 else
   echo -e "App already deployed to cluster, updating it..."
   bx cr init
-  bx cr info
-  bx cr images
-  bx ic init
-  bx ic info
-  bx ic images
-  LATEST_APP_VERSION=$(bx ic images | grep $IOT4I_APP_NAME | sort -rnk2 | awk '!x[$1]++' | awk '{print $2}')
+  LATEST_APP_VERSION=$(bx cr images | grep $IOT4I_APP_NAME | sort -rnk3 | awk '!x[$1]++' | awk '{print $3}')
   # set the new version to the deployment, this would perform a red/black update
   kubectl set image deployment $IOT4I_APP_NAME $IOT4I_APP_NAME=registry.ng.bluemix.net/iot4i_v2/$IOT4I_APP_NAME:$LATEST_APP_VERSION
 fi
