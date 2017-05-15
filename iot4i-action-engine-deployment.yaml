@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot4i-action-engine-service
+  labels:
+    app: iot4iactionengine
+    tier: iot4i
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  type: NodePort
+  # type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 4011
+    nodePort: 31002
+  selector:
+    app: iot4iactionengine
+    tier: iot4i
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot4iactionengine
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: iot4iactionengine
+  #   tier: iot4i
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  # selector can be applied automatically
+  # from the labels in the pod template if not set
+  # selector:
+  #   matchLabels:
+  #     app: iot4iactionengine
+  #     tier: iot4i
+  template:
+    metadata:
+      labels:
+        app: iot4iactionengine
+        tier: iot4i
+    spec:
+      containers:
+      - name: iot4iactionengine
+        image: registry.ng.bluemix.net/iot4i_v2/iot4iactionengine
+        ports:
+        - containerPort: 4011
