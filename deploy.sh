@@ -18,16 +18,16 @@ eval "$exp"
 echo -e "Downloading iot4i-deployment.yml from" $1
 curl --silent $1 > iot4i-deployment.yml
 
-echo -e "Check if deployment exists for app " $IOT4I_APP_NAME
-kubectl get deployments | grep $IOT4I_APP_NAME
+echo -e "Check if deployment exists for app " $CF_APP
+kubectl get deployments | grep $CF_APP
 if [ $? -ne 0 ]; then
   echo -e "App not deployed to cluster yet, creating pods"
   kubectl create -f iot4i-deployment.yml
 else
   echo -e "App already deployed to cluster, updating it..."
-  LATEST_APP_VERSION=$(bx cr images | grep $IOT4I_APP_NAME | sort -rnk3 | awk '!x[$1]++' | awk '{print $3}')
+  LATEST_APP_VERSION=$(bx cr images | grep $CF_APP | sort -rnk3 | awk '!x[$1]++' | awk '{print $3}')
   # set the new version to the deployment, this would perform a red/black update
-  kubectl set image deployment $IOT4I_APP_NAME $IOT4I_APP_NAME=registry.ng.bluemix.net/iot4i_v2/$IOT4I_APP_NAME:$LATEST_APP_VERSION
+  kubectl set image deployment $CF_APP $CF_APP=registry.ng.bluemix.net/iot4i_v2/$CF_APP:$LATEST_APP_VERSION
 fi
 
 PORT=$(kubectl get services | grep $SERVICE_NAME | sed 's/.*://g' | sed 's/\/.*//g')
