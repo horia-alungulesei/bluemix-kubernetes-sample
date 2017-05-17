@@ -13,7 +13,7 @@ spec:
   ports:
     # the port that this service should serve on
   - port: 10010
-    nodePort: 31006
+    nodePort: 31005
   selector:
     app: iot4iswaggerapi
     tier: iot4i
@@ -44,7 +44,7 @@ spec:
         tier: iot4i
     spec:
       containers:
-      - name: iot4iapi
+      - name: iot4iswaggerapi
         image: registry.ng.bluemix.net/iot4i_v2/iot4iswaggerapi
         ports:
         - containerPort: 10010
